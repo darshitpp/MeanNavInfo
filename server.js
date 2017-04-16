@@ -54,4 +54,13 @@ app.get("/api/navInfo", function(req, res) {
  *    GET: find contact by id
  */
 
-app.get("/api/navInfo/:id", function(req, res) {});
+app.get("/api/navInfo/:id", function(req, res) {
+
+    db.collection(NAV_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to get contact");
+        } else {
+            res.status(200).json(doc);
+        }
+    });
+});
