@@ -49,24 +49,6 @@ app.get("/api/navInfo/all", function(req, res) {
     });
 });
 
-
-/*  "/api/contacts/:id"
- *    GET: find contact by schemeCode
- */
-
-app.get("/api/navInfo/schemeCode/:id", function(req, res) {
-
-    var search = new ObjectID(req.params.id);
-
-    db.collection(NAV_COLLECTION).findOne({ "Scheme Code": search }, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to get contact");
-        } else {
-            res.status(200).json(doc);
-        }
-    });
-});
-
 /*  "/api/contacts/:id"
  *    GET: find contact by schemeCode
  */
