@@ -61,7 +61,7 @@ app.get("/api/navInfo", function(req, res) {
         if (err) {
             handleError(res, err.message, "Failed to get Nav Info.");
         } else {
-            res.status(200).json(doc);
+            res.status(200).json(docs);
         }
     });
 });
