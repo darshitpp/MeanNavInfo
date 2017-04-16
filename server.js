@@ -55,7 +55,7 @@ app.get("/api/navInfo/all", function(req, res) {
 
 app.get("/api/navInfo/schemeCode/:id", function(req, res) {
 
-    var search = req.params.id;
+    var search = new ObjectID(req.params.id);
 
     db.collection(NAV_COLLECTION).findOne({ "Scheme Code": search }, function(err, doc) {
         if (err) {
