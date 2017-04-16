@@ -56,11 +56,11 @@ app.get("/api/navInfo/all", function(req, res) {
 //Probablt doesn't work
 app.get("/api/navInfo", function(req, res) {
 
-    var schemeCode = new ObjectID(req.query.schemeCode);
+    var schemeCode = req.query.schemeCode;
 
-    db.collection(NAV_COLLECTION).findOne({ "Scheme Code": schemeCode }, function(err, doc) {
+    db.collection(NAV_COLLECTION).findOne({ "Scheme Code": req.query.schemeCode }).toArray(function(err, docs) {
         if (err) {
-            handleError(res, err.message, "Failed to get contact");
+            handleError(res, err.message, "Failed to get Nav Info.");
         } else {
             res.status(200).json(doc);
         }
