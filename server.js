@@ -36,10 +36,10 @@ function handleError(res, reason, message, code) {
 }
 
 /*  "/api/contacts"
- *    GET: finds all contacts
+ *    GET: finds all documents
  */
 
-app.get("/api/navInfo", function(req, res) {
+app.get("/api/navInfo/all", function(req, res) {
     db.collection(NAV_COLLECTION).find({}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "Failed to get Nav Info.");
@@ -51,12 +51,48 @@ app.get("/api/navInfo", function(req, res) {
 
 
 /*  "/api/contacts/:id"
- *    GET: find contact by id
+ *    GET: find contact by schemeCode
  */
 
-app.get("/api/navInfo/:id", function(req, res) {
+app.get("/api/navInfo/schemeCode/:id", function(req, res) {
 
-    db.collection(NAV_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    var search = new ObjectID(req.params.id);
+
+    db.collection(NAV_COLLECTION).findOne({ "Scheme Code": search }, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to get contact");
+        } else {
+            res.status(200).json(doc);
+        }
+    });
+});
+
+/*  "/api/contacts/:id"
+ *    GET: find contact by schemeCode
+ */
+
+app.get("/api/navInfo/schemeCode/:id", function(req, res) {
+
+    var search = new ObjectID(req.params.id);
+
+    db.collection(NAV_COLLECTION).findOne({ "Scheme Code": search }, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to get contact");
+        } else {
+            res.status(200).json(doc);
+        }
+    });
+});
+
+/*  "/api/contacts/:id"
+ *    GET: find contact by schemeName
+ */
+
+app.get("/api/navInfo/schemeName/:id", function(req, res) {
+
+    var search = new ObjectID(req.params.id);
+
+    db.collection(NAV_COLLECTION).findOne({ "Scheme Name": new RegExp(/.*search*./) }, function(err, doc) {
         if (err) {
             handleError(res, err.message, "Failed to get contact");
         } else {
