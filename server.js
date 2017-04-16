@@ -40,7 +40,7 @@ function handleError(res, reason, message, code) {
  */
 
 //Works
-app.get("/api/navInfo", function(req, res) {
+app.get("/api/navInfo/all", function(req, res) {
     db.collection(NAV_COLLECTION).find({}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "Failed to get Nav Info.");
@@ -54,28 +54,15 @@ app.get("/api/navInfo", function(req, res) {
  *    GET: find contact by schemeCode
  */
 //Probablt doesn't work
-app.get("/api/navInfo/id", function(req, res) {
+app.get("/api/navInfo", function(req, res) {
 
     var schemeCode = req.query.schemeCode;
-    var schemeName = req.query.schemeName;
 
-    if (schemeCode != null) {
-        db.collection(NAV_COLLECTION).findOne({ "Scheme Code": schemeCode }, function(err, doc) {
-            if (err) {
-                handleError(res, err.message, "Failed to get contact");
-            } else {
-                res.status(200).json(doc);
-            }
-        });
-    } else {
-        db.collection(NAV_COLLECTION).findOne({ "Scheme Name": new RegExp(/.*search *./) }, function(err, doc) {
-            if (err) {
-                handleError(res, err.message, "Failed to get contact");
-            } else {
-                res.status(200).json(doc);
-            }
-        });
-    }
-
-
+    db.collection(NAV_COLLECTION).findOne({ "Scheme Code": schemeCode }, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to get contact");
+        } else {
+            res.status(200).json(doc);
+        }
+    });
 });
