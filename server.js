@@ -54,7 +54,7 @@ app.get("/api/navInfo", function(req, res) {
  *    GET: find contact by schemeCode
  */
 //Probablt doesn't work
-app.get("/api/navInfo/:id", function(req, res) {
+app.get("/api/navInfo/id", function(req, res) {
 
     var schemeCode = req.query.schemeCode;
     var schemeName = req.query.schemeName;
