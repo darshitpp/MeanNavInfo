@@ -50,11 +50,23 @@ app.get("/api/navInfo/all", function(req, res) {
     });
 });
 
+app.get("/api/navInfo/:id", function(req, res) {
+    db.collection(NAV_COLLECTION).find({ "Scheme Code": req.params.id }).toArray(function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "Failed to get Nav Info.");
+        } else {
+            res.status(200).json(docs);
+        }
+    });
+});
+
+
+
 /*  "/api/contacts/:id"
  *    GET: find contact by schemeCode
  */
 //Doesn't work
-app.get("/api/navInfo", function(req, res) {
+/*app.get("/api/navInfo", function(req, res) {
 
     var sc = req.query['schemeCode'];
     console.log(sc)
@@ -66,3 +78,4 @@ app.get("/api/navInfo", function(req, res) {
         }
     });
 });
+*/
