@@ -53,7 +53,7 @@ app.get("/api/navInfo/all", function(req, res) {
 /*  "/api/contacts/:id"
  *    GET: find contact by schemeCode
  */
-//Probably doesn't work
+//Doesn't work
 app.get("/api/navInfo", function(req, res) {
 
     var sc = req.query.schemeCode;
