@@ -1,5 +1,8 @@
 var fs = require('fs')
 
+/*
+ * Cleans up the data from NAVAll.txt and converts it to csv
+ */
 
 function readWriteAsync() {
     fs.readFile('NAVAll.txt', 'utf-8', function(err, data) {
@@ -7,9 +10,9 @@ function readWriteAsync() {
 
         var val = data.replace(/^\D+/gim, '').replace(/;/gim, ',')
 
-        fs.writeFile('filelistAsync.csv', val, 'utf-8', function(err) {
+        fs.writeFile('Nav.csv', val, 'utf-8', function(err) {
             if (err) throw err;
-            console.log('filelistAsync complete');
+            console.log('Nav.csv created');
         });
     });
 }

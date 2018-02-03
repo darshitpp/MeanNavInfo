@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
-const MONGO_URI = 'mongodb://darshit:darshit@ds161640.mlab.com:61640/nav_data'
+const MONGO_URI = // MongoDB URI
     // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(MONGO_URI, function(err, database) {
     if (err) {
@@ -35,11 +35,10 @@ function handleError(res, reason, message, code) {
     res.status(code || 500).json({ "error": message });
 }
 
-/*  "/api/contacts"
- *    GET: finds all documents
+/*  "/api/navInfo/all"
+ *    GET: finds all matches
  */
 
-//Works
 app.get("/api/navInfo/all", function(req, res) {
     db.collection(NAV_COLLECTION).find({}).toArray(function(err, docs) {
         if (err) {
@@ -50,6 +49,10 @@ app.get("/api/navInfo/all", function(req, res) {
     });
 });
 
+/*  "/api/navInfo/:id"
+ *    GET: find contact by schemeCode
+ */
+
 app.get("/api/navInfo/:id", function(req, res) {
     db.collection(NAV_COLLECTION).find({ "Scheme Code": req.params.id }).toArray(function(err, docs) {
         if (err) {
@@ -59,23 +62,3 @@ app.get("/api/navInfo/:id", function(req, res) {
         }
     });
 });
-
-
-
-/*  "/api/contacts/:id"
- *    GET: find contact by schemeCode
- */
-//Doesn't work
-/*app.get("/api/navInfo", function(req, res) {
-
-    var sc = req.query['schemeCode'];
-    console.log(sc)
-    db.collection(NAV_COLLECTION).find({ "Scheme Code": req.query['schemeCode'] }, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to get Nav Info.");
-        } else {
-            res.status(200).json(doc);
-        }
-    });
-});
-*/
